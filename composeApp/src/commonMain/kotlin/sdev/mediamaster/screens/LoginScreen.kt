@@ -27,7 +27,7 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
             if (username == "admin" && password == "admin") {
                 onLoginSuccess()
             } else {
-                error = "Usuario o contraseña incorrectos"
+                error = "Incorrect user or password"
             }
             triggerLogin = false
         }
@@ -36,17 +36,16 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(32.dp)
             .background(MaterialTheme.colorScheme.background), // Usa el color de fondo del tema
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text("Iniciar sesión", style = MaterialTheme.typography.headlineMedium)
+        Text("Login", color = MaterialTheme.colorScheme.onBackground, style = MaterialTheme.typography.headlineMedium)
         Spacer(Modifier.height(16.dp))
         OutlinedTextField(
             value = username,
             onValueChange = { username = it },
-            label = { Text("Usuario") },
+            label = { Text("User") },
             singleLine = true,
             enabled = !loading
         )
@@ -54,7 +53,7 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
-            label = { Text("Contraseña") },
+            label = { Text("Password") },
             singleLine = true,
             visualTransformation = PasswordVisualTransformation(),
             enabled = !loading
@@ -69,7 +68,7 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
             if (loading) {
                 CircularProgressIndicator(Modifier.size(20.dp), strokeWidth = 2.dp)
             } else {
-                Text("Entrar")
+                Text("Enter")
             }
         }
         error?.let {

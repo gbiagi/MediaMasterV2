@@ -10,6 +10,7 @@ import sdev.mediamaster.screens.MainScreen
 // Paleta de colores personalizada
 private val DarkGreen = Color(0xFF145A32)
 private val White = Color(0xFFFFFFFF)
+private val Grey = Color(0xFF232323)
 
 private val CustomDarkColorScheme = darkColorScheme(
     primary = White,
@@ -19,7 +20,8 @@ private val CustomDarkColorScheme = darkColorScheme(
     surface = DarkGreen,
     onSurface = White,
     secondary = White,
-    onSecondary = DarkGreen
+    onSecondary = DarkGreen,
+    inversePrimary = Grey
 )
 
 @Composable
