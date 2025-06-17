@@ -6,6 +6,7 @@ import androidx.compose.ui.graphics.Color
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import sdev.mediamaster.screens.LoginScreen
 import sdev.mediamaster.screens.MainScreen
+import sdev.mediamaster.screens.RegisterScreen
 
 // Paleta de colores personalizada
 private val DarkGreen = Color(0xFF145A32)
@@ -38,8 +39,14 @@ fun MediaMasterTheme(content: @Composable () -> Unit) {
 fun App() {
     MediaMasterTheme {
         var loggedIn by remember { mutableStateOf(false) }
-        if (!loggedIn) {
-            LoginScreen(onLoginSuccess = { loggedIn = true })
+        var showRegister by remember { mutableStateOf(false) }
+
+        if (!loggedIn and !showRegister) {
+            LoginScreen(
+                onLoginSuccess = { loggedIn = true },
+                onRegisterClick = { showRegister = true })
+        } else if (showRegister) {
+            RegisterScreen(goBack = { showRegister = false })
         } else {
             MainScreen()
         }

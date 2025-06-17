@@ -11,7 +11,10 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun LoginScreen(onLoginSuccess: () -> Unit) {
+fun LoginScreen(
+    onLoginSuccess: () -> Unit,
+    onRegisterClick: () -> Unit
+) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var error by remember { mutableStateOf<String?>(null) }
@@ -59,16 +62,27 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
             enabled = !loading
         )
         Spacer(Modifier.height(16.dp))
-        Button(
-            onClick = {
-                triggerLogin = true
-            },
-            enabled = !loading
-        ) {
-            if (loading) {
-                CircularProgressIndicator(Modifier.size(20.dp), strokeWidth = 2.dp)
-            } else {
-                Text("Enter")
+
+        Row() {
+            Button(
+                onClick = {
+                    triggerLogin = true
+                },
+                enabled = !loading
+            ) {
+                if (loading) {
+                    CircularProgressIndicator(Modifier.size(20.dp), strokeWidth = 2.dp)
+                } else {
+                    Text("Enter")
+                }
+            }
+
+            Spacer(Modifier.width(8.dp))
+            Button(
+                onClick = {
+                    onRegisterClick()
+                }) {
+                Text("Register")
             }
         }
         error?.let {
