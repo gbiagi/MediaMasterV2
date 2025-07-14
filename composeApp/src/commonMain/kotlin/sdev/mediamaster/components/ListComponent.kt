@@ -8,6 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import sdev.mediamaster.itemClasses.*
+import sdev.mediamaster.screens.ListView
 
 @Composable
 fun ListComponent(
@@ -18,12 +19,20 @@ fun ListComponent(
     Column(
         modifier = modifier.fillMaxWidth()
     ) {
-        Text(
-            text = title,
-            style = MaterialTheme.typography.headlineSmall,
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
-        )
+        Row {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.headlineSmall,
+                color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+            )
+            Button(onClick = {
+                // Go to list view
 
+            }) {
+                Text("Edit")
+            }
+        }
         HorizontalDivider(
             modifier = Modifier.padding(horizontal = 16.dp),
             thickness = 1.dp,
@@ -42,6 +51,7 @@ fun ListComponent(
         }
     }
 }
+
 
 @Composable
 private fun ItemDisplay(item: Item) {
