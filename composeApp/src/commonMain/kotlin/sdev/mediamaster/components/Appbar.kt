@@ -1,3 +1,4 @@
+import sdev.mediamaster.NavigationTarget
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -9,7 +10,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun Appbar(title: String) {
+fun Appbar(title: String, goTo: (NavigationTarget) -> Unit) {
     Surface(
         shadowElevation = 4.dp,
         shape = RoundedCornerShape(
@@ -31,9 +32,14 @@ fun Appbar(title: String) {
             Text(
                 text = title,
                 style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.weight(1f),
                 textAlign = TextAlign.Center
             )
+            Button(onClick = { goTo(NavigationTarget.MAIN) }) {
+                Text("Main")
+            }
+            // Add padding to the right
+            Spacer(modifier = Modifier.width(20.dp))
         }
     }
 }

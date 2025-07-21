@@ -7,6 +7,10 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 import sdev.mediamaster.screens.LoginScreen
 import sdev.mediamaster.screens.MainScreen
 import sdev.mediamaster.screens.RegisterScreen
+import sdev.mediamaster.screens.ListView
+import sdev.mediamaster.itemClasses.Item
+import sdev.mediamaster.itemClasses.Book
+import sdev.mediamaster.screens.SearchScreen
 
 // Paleta de colores personalizada
 private val DarkGreen = Color(0xFF145A32)
@@ -34,21 +38,76 @@ fun MediaMasterTheme(content: @Composable () -> Unit) {
     )
 }
 
+// Enum para navegación
+enum class NavigationTarget {
+    LOGIN, REGISTER, MAIN, LIST_VIEW, SEARCH
+}
+
 @Composable
 @Preview
 fun App() {
     MediaMasterTheme {
-        var loggedIn by remember { mutableStateOf(false) }
-        var showRegister by remember { mutableStateOf(false) }
+        var navigation by remember { mutableStateOf(NavigationTarget.LOGIN) }
+        var selectedListTitle by remember { mutableStateOf("") }
+        var selectedListItems by remember { mutableStateOf(listOf<Item>()) }
+        var listsItems = remember { mutableStateListOf<Item>() }
+        // Inicializar la lista con algunos libros de ejemplo
+        if (listsItems.isEmpty()) {
+            listsItems.add(
+                Book(
+                    "Book 1",
+                    "Author 1",
+                    2023,
+                    "https://ichef.bbci.co.uk/news/1024/cpsprodpb/EF37/production/_108993216_ok-hand.jpg.webp",
+                    "Description of Book 1"
+                )
+            )
+            listsItems.add(
+                Book(
+                    "Book 2",
+                    "Author 2",
+                    2022,
+                    "https://ichef.bbci.co.uk/news/1024/cpsprodpb/EF37/production/_108993216_ok-hand.jpg.webp",
+                    "Description of Book 2"
+                )
+            )
+        }
 
-        if (!loggedIn and !showRegister) {
-            LoginScreen(
-                onLoginSuccess = { loggedIn = true },
-                onRegisterClick = { showRegister = true })
-        } else if (showRegister) {
-            RegisterScreen(goBack = { showRegister = false })
-        } else {
-            MainScreen()
+        when (navigation) {
+            NavigationTarget.LOGIN -> {
+                LoginScreen(
+                    onLoginSuccess = { navigation = NavigationTarget.MAIN },
+                    onRegisterClick = { navigation = NavigationTarget.REGISTER }
+                )
+            }
+
+            NavigationTarget.REGISTER -> {
+                RegisterScreen(goBack = { navigation = NavigationTarget.LOGIN })
+            }
+
+            NavigationTarget.MAIN -> {
+                MainScreen(
+                    listsItems = listsItems,
+                    onListEdit = { title, items ->
+                        selectedListTitle = title
+                        selectedListItems = items
+                        navigation = NavigationTarget.LIST_VIEW
+                    },
+                    goTo = { navigation = it }
+                )
+            }
+
+            NavigationTarget.LIST_VIEW -> {
+                ListView(
+                    title = selectedListTitle,
+                    items = selectedListItems,
+                    goTo = { navigation = NavigationTarget.MAIN }
+                )
+            }
+
+            NavigationTarget.SEARCH -> {
+                SearchScreen(goTo = { navigation = it })
+            }
         }
     }
 }

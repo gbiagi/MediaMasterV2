@@ -20,8 +20,12 @@ fun GameComponent(game: Game, modifier: Modifier = Modifier) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(text = game.name, style = MaterialTheme.typography.titleMedium)
             Text(text = "Plataforma: ${game.platform}", style = MaterialTheme.typography.bodyMedium)
-            game.genre?.let { Text(text = "Género: $it", style = MaterialTheme.typography.bodyMedium) }
-            game.developer?.let { Text(text = "Desarrollador: $it", style = MaterialTheme.typography.bodyMedium) }
+            game.genre?.let {
+                Text(text = "Género: $it", style = MaterialTheme.typography.bodyMedium)
+            }
+            game.developer?.let {
+                Text(text = "Desarrollador: $it", style = MaterialTheme.typography.bodyMedium)
+            }
             Text(text = "Año: ${game.releaseYear}", style = MaterialTheme.typography.bodySmall)
             Text(text = game.description, style = MaterialTheme.typography.bodySmall)
         }
