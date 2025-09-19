@@ -8,6 +8,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Icon
 
 @Composable
 fun Appbar(title: String, goTo: (NavigationTarget) -> Unit) {
@@ -35,8 +39,11 @@ fun Appbar(title: String, goTo: (NavigationTarget) -> Unit) {
                 modifier = Modifier.weight(1f),
                 textAlign = TextAlign.Center
             )
-            Button(onClick = { goTo(NavigationTarget.MAIN) }) {
-                Text("Main")
+            Button(
+                onClick = { goTo(NavigationTarget.MAIN) },
+                contentPadding = PaddingValues(horizontal = 0.dp, vertical = 0.dp)
+            ) {
+                Icon(imageVector = Icons.Default.Home, contentDescription = "")
             }
             // Add padding to the right
             Spacer(modifier = Modifier.width(20.dp))

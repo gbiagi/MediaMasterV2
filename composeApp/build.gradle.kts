@@ -60,6 +60,7 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            implementation("io.ktor:ktor-client-okhttp:2.3.7")
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -71,6 +72,9 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation("org.jetbrains.compose.material:material-icons-extended:1.6.0")
+            implementation("io.ktor:ktor-client-core:2.3.7")
+            implementation("io.ktor:ktor-client-content-negotiation:2.3.7")
+            implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.7")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -78,6 +82,7 @@ kotlin {
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutinesSwing)
+            implementation("io.ktor:ktor-client-cio:2.3.7")
         }
     }
 }
