@@ -58,7 +58,6 @@ fun App() {
                     "Book 1",
                     "Author 1",
                     "2023",
-                    "https://ichef.bbci.co.uk/news/1024/cpsprodpb/EF37/production/_108993216_ok-hand.jpg.webp",
                     "Description of Book 1"
                 )
             )
@@ -67,7 +66,6 @@ fun App() {
                     "Book 2",
                     "Author 2",
                     "2022",
-                    "https://ichef.bbci.co.uk/news/1024/cpsprodpb/EF37/production/_108993216_ok-hand.jpg.webp",
                     "Description of Book 2"
                 )
             )

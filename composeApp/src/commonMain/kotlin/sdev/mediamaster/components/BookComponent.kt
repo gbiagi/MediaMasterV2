@@ -16,7 +16,6 @@ fun BookComponent(book: Book, modifier: Modifier = Modifier) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(text = book.title, style = MaterialTheme.typography.titleMedium)
             Text(text = "Autor: ${book.author}", style = MaterialTheme.typography.bodyMedium)
-            Text(text = "Año: ${book.releaseYear}", style = MaterialTheme.typography.bodySmall)
             Text(text = book.description, style = MaterialTheme.typography.bodySmall)
         }
     }
