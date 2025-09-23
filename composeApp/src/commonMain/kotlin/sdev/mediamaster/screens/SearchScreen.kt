@@ -114,7 +114,7 @@ fun SearchScreen(goTo: (NavigationTarget) -> Unit) {
                     Button(
                         onClick = {
                             coroutineScope.launch {
-                                ApiClient.getMovie("OL893415W")
+                                ApiClient.getMovie("6723")
                             }
                         },
                     ) {

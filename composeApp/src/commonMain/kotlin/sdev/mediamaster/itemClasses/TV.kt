@@ -4,15 +4,16 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Movie(
+data class TV(
     @SerialName("original_title")
     override val title: String,
     @SerialName("overview")
     override val description: String,
     @SerialName("backdrop_path")
     override val imageUrl: String,
-    @SerialName("runtime")
-    val runtime: Int,
-    @SerialName("release_date")
-    val releaseYear: String
+    @SerialName("first_air_date")
+    val firstAirDate: String,
+    @SerialName("status")
+    val status: String,
+    val seasons: Int,
 ) : Item

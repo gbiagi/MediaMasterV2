@@ -13,6 +13,11 @@ import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import sdev.mediamaster.itemClasses.Item
+import sdev.mediamaster.itemClasses.Movie
+
+// tmbd img url https://image.tmdb.org/t/p/w500 + poster_path
+// open library img https://covers.openlibrary.org/b/id/{}.jpg add cover id
 
 object ApiClient {
     val client = HttpClient {
@@ -25,12 +30,16 @@ object ApiClient {
         // Extra config (timeouts, logging, etc.)
     }
 
-    // Ejemplo de función GET genérica
-    suspend fun getMovie(id: String): String {
-        val response = client.get("https://openlibrary.org/works/$id")
+    suspend fun getMovie(id: String): Movie {
+        val response = client.get("http://localhost:3000/mmserver/movie/$id")
+        // Puedes imprimir el JSON crudo para debug
         println(response.body<String>())
-        
-        return "g"
+
+        val movie = response.body<Movie>()
+
+        println(movie)
+        // Deserializa directamente a Movie
+        return movie;
     }
 
 }

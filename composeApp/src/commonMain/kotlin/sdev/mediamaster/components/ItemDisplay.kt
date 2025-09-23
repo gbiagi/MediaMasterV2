@@ -18,7 +18,7 @@ fun ItemDisplay(item: Item) {
         is Movie -> MovieComponent(movie = item)
         is Game -> GameComponent(game = item)
         else -> Text(
-            text = item.name,
+            text = item.title,
             style = MaterialTheme.typography.bodyMedium,
             modifier = Modifier.padding(8.dp)
         )

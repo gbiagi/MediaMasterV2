@@ -1,8 +1,7 @@
 package sdev.mediamaster.itemClasses
 
-open class Item(
-    val name: String,
-    val description: String,
-    val releaseYear: Int,
+interface Item {
+    val title: String
+    val description: String
     val imageUrl: String
-)
+}

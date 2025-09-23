@@ -18,8 +18,8 @@ fun MovieComponent(movie: Movie, modifier: Modifier = Modifier) {
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
-            Text(text = movie.name, style = MaterialTheme.typography.titleMedium)
-            Text(text = "Director: ${movie.director}", style = MaterialTheme.typography.bodyMedium)
+            Text(text = movie.title, style = MaterialTheme.typography.titleMedium)
+            Text(text = "Runtime (minutes): ${movie.runtime}", style = MaterialTheme.typography.bodyMedium)
             Text(text = "Año: ${movie.releaseYear}", style = MaterialTheme.typography.bodySmall)
             Text(text = movie.description, style = MaterialTheme.typography.bodySmall)
         }

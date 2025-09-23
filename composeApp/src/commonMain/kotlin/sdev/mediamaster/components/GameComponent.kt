@@ -18,7 +18,7 @@ fun GameComponent(game: Game, modifier: Modifier = Modifier) {
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
-            Text(text = game.name, style = MaterialTheme.typography.titleMedium)
+            Text(text = game.title, style = MaterialTheme.typography.titleMedium)
             Text(text = "Plataforma: ${game.platform}", style = MaterialTheme.typography.bodyMedium)
             game.genre?.let {
                 Text(text = "Género: $it", style = MaterialTheme.typography.bodyMedium)
