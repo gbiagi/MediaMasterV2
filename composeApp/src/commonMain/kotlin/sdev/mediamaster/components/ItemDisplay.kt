@@ -10,6 +10,7 @@ import sdev.mediamaster.itemClasses.Book
 import sdev.mediamaster.itemClasses.Game
 import sdev.mediamaster.itemClasses.Item
 import sdev.mediamaster.itemClasses.Movie
+import sdev.mediamaster.itemClasses.TV
 
 @Composable
 fun ItemDisplay(item: Item) {
@@ -17,6 +18,7 @@ fun ItemDisplay(item: Item) {
         is Book -> BookComponent(book = item)
         is Movie -> MovieComponent(movie = item)
         is Game -> GameComponent(game = item)
+        is TV -> TVComponent(tv = item)
         else -> Text(
             text = item.title,
             style = MaterialTheme.typography.bodyMedium,

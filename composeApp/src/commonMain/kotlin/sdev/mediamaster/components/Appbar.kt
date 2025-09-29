@@ -33,20 +33,39 @@ fun Appbar(title: String, goTo: (NavigationTarget) -> Unit) {
                 .background(MaterialTheme.colorScheme.inversePrimary),
             verticalAlignment = Alignment.CenterVertically
         ) {
+            // Left side space to center the title
+            Spacer(modifier = Modifier.weight(1f))
+
             Text(
                 text = title,
                 style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.weight(1f),
                 textAlign = TextAlign.Center
             )
-            Button(
-                onClick = { goTo(NavigationTarget.MAIN) },
-                contentPadding = PaddingValues(horizontal = 0.dp, vertical = 0.dp)
+            // Second row to hold everything on the right side
+            Row(
+                modifier = Modifier.weight(1f),
+                horizontalArrangement = Arrangement.End,
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Icon(imageVector = Icons.Default.Home, contentDescription = "")
+                // Search Button
+                Button(
+                    onClick = { goTo(NavigationTarget.SEARCH) },
+                    contentPadding = PaddingValues(horizontal = 0.dp, vertical = 0.dp)
+                ) {
+                    Icon(imageVector = Icons.Default.Search, contentDescription = "")
+                }
+
+                Spacer(modifier = Modifier.width(20.dp))
+
+                // Home Button
+                Button(
+                    onClick = { goTo(NavigationTarget.MAIN) },
+                    contentPadding = PaddingValues(horizontal = 0.dp, vertical = 0.dp)
+                ) {
+                    Icon(imageVector = Icons.Default.Home, contentDescription = "")
+                }
+                Spacer(modifier = Modifier.width(30.dp))
             }
-            // Add padding to the right
-            Spacer(modifier = Modifier.width(20.dp))
         }
     }
 }

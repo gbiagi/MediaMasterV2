@@ -4,11 +4,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import sdev.mediamaster.itemClasses.*
-import sdev.mediamaster.screens.ListView
 
 @Composable
 fun ListComponent(
@@ -21,6 +19,7 @@ fun ListComponent(
         modifier = modifier.fillMaxWidth()
     ) {
         Row {
+            // List name/title
             Text(
                 text = title,
                 style = MaterialTheme.typography.headlineSmall,

@@ -9,8 +9,11 @@ import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.request.get
 import io.ktor.http.path
 import io.ktor.http.takeFrom
+import sdev.mediamaster.itemClasses.Book
+import sdev.mediamaster.itemClasses.Game
 import sdev.mediamaster.itemClasses.ItemSearch
 import sdev.mediamaster.itemClasses.Movie
+import sdev.mediamaster.itemClasses.TV
 import kotlin.text.append
 
 object ApiClient {
@@ -29,15 +32,6 @@ object ApiClient {
         }
     }
 
-    suspend fun getMovie(id: String): Movie {
-        val response = client.get {
-            url {
-                takeFrom("http://localhost:3000")
-                path("mmserver", "movie", id)
-            }
-        }
-        return response.body<Movie>();
-    }
 
     suspend fun search(category: String, query: String): List<ItemSearch> {
         return client.get {
@@ -50,4 +44,45 @@ object ApiClient {
             .results
             .take(5)
     }
+
+    suspend fun getMovie(id: String): Movie {
+        val response = client.get {
+            url {
+                takeFrom("http://localhost:3000")
+                path("mmserver", "movie", id)
+            }
+        }
+        return response.body<Movie>();
+    }
+
+    suspend fun getTV(id: String): TV {
+        val response = client.get {
+            url {
+                takeFrom("http://localhost:3000")
+                path("mmserver", "tv", id)
+            }
+        }
+        return response.body<TV>();
+    }
+
+    suspend fun getBook(id: String): Book {
+        val response = client.get {
+            url {
+                takeFrom("http://localhost:3000")
+                path("mmserver", "book", id)
+            }
+        }
+        return response.body<Book>();
+    }
+
+    suspend fun getGame(id: String): Game {
+        val response = client.get {
+            url {
+                takeFrom("http://localhost:3000")
+                path("mmserver", "game", id)
+            }
+        }
+        return response.body<Game>();
+    }
+
 }

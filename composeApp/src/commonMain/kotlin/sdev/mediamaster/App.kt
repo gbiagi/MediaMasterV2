@@ -40,7 +40,7 @@ fun MediaMasterTheme(content: @Composable () -> Unit) {
 
 // Enum para navegación
 enum class NavigationTarget {
-    LOGIN, REGISTER, MAIN, LIST_VIEW, SEARCH
+    LOGIN, REGISTER, MAIN, SEARCH
 }
 
 @Composable
@@ -48,28 +48,6 @@ enum class NavigationTarget {
 fun App() {
     MediaMasterTheme {
         var navigation by remember { mutableStateOf(NavigationTarget.LOGIN) }
-        var selectedListTitle by remember { mutableStateOf("") }
-        var selectedListItems by remember { mutableStateOf(listOf<Item>()) }
-        var listsItems = remember { mutableStateListOf<Item>() }
-        // Inicializar la lista con algunos libros de ejemplo
-        if (listsItems.isEmpty()) {
-            listsItems.add(
-                Book(
-                    "Book 1",
-                    "Author 1",
-                    "2023",
-                    "Description of Book 1"
-                )
-            )
-            listsItems.add(
-                Book(
-                    "Book 2",
-                    "Author 2",
-                    "2022",
-                    "Description of Book 2"
-                )
-            )
-        }
 
         when (navigation) {
             NavigationTarget.LOGIN -> {
@@ -85,21 +63,7 @@ fun App() {
 
             NavigationTarget.MAIN -> {
                 MainScreen(
-                    listsItems = listsItems,
-                    onListEdit = { title, items ->
-                        selectedListTitle = title
-                        selectedListItems = items
-                        navigation = NavigationTarget.LIST_VIEW
-                    },
                     goTo = { navigation = it }
-                )
-            }
-
-            NavigationTarget.LIST_VIEW -> {
-                ListView(
-                    title = selectedListTitle,
-                    items = selectedListItems,
-                    goTo = { navigation = NavigationTarget.MAIN }
                 )
             }
 

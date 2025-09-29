@@ -137,16 +137,7 @@ fun SearchScreen(goTo: (NavigationTarget) -> Unit) {
                                 }
                             }
                         }
-                        // TEST BUTTON *************************
-//                        Button(
-//                            onClick = {
-//
-//                            },
-//                        ) {
-//                            Text("Test")
-//                        }
                     }
-
                     // Suggestions dropdown
                     if (showSuggestions && search.isNotEmpty()) {
                         Card(
