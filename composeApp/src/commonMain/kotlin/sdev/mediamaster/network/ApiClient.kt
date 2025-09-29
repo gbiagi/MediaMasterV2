@@ -5,21 +5,16 @@ import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import io.ktor.client.call.body
+import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.request.get
-import io.ktor.client.request.post
-import io.ktor.client.request.setBody
-import io.ktor.http.HttpHeaders
-import io.ktor.http.ContentType
-import io.ktor.http.contentType
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import sdev.mediamaster.itemClasses.Item
+import io.ktor.http.path
+import io.ktor.http.takeFrom
+import sdev.mediamaster.itemClasses.ItemSearch
 import sdev.mediamaster.itemClasses.Movie
-
-// tmbd img url https://image.tmdb.org/t/p/w500 + poster_path
-// open library img https://covers.openlibrary.org/b/id/{}.jpg add cover id
+import kotlin.text.append
 
 object ApiClient {
+
     val client = HttpClient {
         install(ContentNegotiation) {
             json(Json {
@@ -27,19 +22,32 @@ object ApiClient {
                 isLenient = true
             })
         }
-        // Extra config (timeouts, logging, etc.)
+        //Config timeout
+        install(HttpTimeout) {
+            requestTimeoutMillis = 30 * 1000L
+            connectTimeoutMillis = 10 * 1000L
+        }
     }
 
     suspend fun getMovie(id: String): Movie {
-        val response = client.get("http://localhost:3000/mmserver/movie/$id")
-        // Puedes imprimir el JSON crudo para debug
-        println(response.body<String>())
-
-        val movie = response.body<Movie>()
-
-        println(movie)
-        // Deserializa directamente a Movie
-        return movie;
+        val response = client.get {
+            url {
+                takeFrom("http://localhost:3000")
+                path("mmserver", "movie", id)
+            }
+        }
+        return response.body<Movie>();
     }
 
+    suspend fun search(category: String, query: String): List<ItemSearch> {
+        return client.get {
+            url {
+                takeFrom("http://localhost:3000/")
+                path("mmserver", "search${category.lowercase()}", query)
+            }
+        }
+            .body<SearchResponse>()
+            .results
+            .take(5)
+    }
 }

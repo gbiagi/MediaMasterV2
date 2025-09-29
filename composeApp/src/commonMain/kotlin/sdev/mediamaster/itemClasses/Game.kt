@@ -8,9 +8,9 @@ data class Game(
     @SerialName("name")
     override val title: String,
     @SerialName("description_raw")
-    override val description: String,
+    val description: String,
     @SerialName("background_image")
-    override val imageUrl: String,
+    override var imageUrl: String,
     @SerialName("released")
     val releaseYear: String,
 //    val platform: String,

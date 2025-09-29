@@ -1,6 +1,9 @@
 package sdev.mediamaster.screens
 
 import Appbar
+import io.kamel.image.KamelImage
+import io.kamel.image.asyncPainterResource
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -43,6 +46,8 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.*
 import kotlinx.coroutines.launch
 import sdev.mediamaster.NavigationTarget
+import sdev.mediamaster.itemClasses.Item
+import sdev.mediamaster.itemClasses.ItemSearch
 import sdev.mediamaster.network.ApiClient
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -53,7 +58,7 @@ fun SearchScreen(goTo: (NavigationTarget) -> Unit) {
     var showSuggestions by remember { mutableStateOf(false) }
     val options = listOf("Movie", "TV", "Game", "Book")
     var selectedOption by remember { mutableStateOf(options[0]) }
-    val suggestionItems = listOf("item1", "item2", "item3", "item4", "item5")
+    var suggestionItems by remember { mutableStateOf(listOf<ItemSearch>()) }
 
     val coroutineScope = rememberCoroutineScope()
 
@@ -78,14 +83,17 @@ fun SearchScreen(goTo: (NavigationTarget) -> Unit) {
                             singleLine = true,
                             modifier = Modifier.size(width = 500.dp, height = 56.dp),
                             colors = TextFieldDefaults.colors(
-                                focusedTextColor = MaterialTheme.colorScheme.inversePrimary,
-                                unfocusedTextColor = MaterialTheme.colorScheme.inversePrimary,
+                                focusedTextColor = MaterialTheme.colorScheme.primary,
+                                unfocusedTextColor = MaterialTheme.colorScheme.primary,
 
                                 ),
                             leadingIcon = { Icon(imageVector = Icons.Default.Search, contentDescription = "") },
                             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
                             keyboardActions = KeyboardActions(
                                 onSearch = {
+                                    coroutineScope.launch {
+                                        suggestionItems = ApiClient.search(selectedOption, search)
+                                    }
                                     showSuggestions = true
                                 }
                             )
@@ -130,13 +138,13 @@ fun SearchScreen(goTo: (NavigationTarget) -> Unit) {
                             }
                         }
                         // TEST BUTTON *************************
-                        Button(
-                            onClick = {
-
-                            },
-                        ) {
-                            Text("Test")
-                        }
+//                        Button(
+//                            onClick = {
+//
+//                            },
+//                        ) {
+//                            Text("Test")
+//                        }
                     }
 
                     // Suggestions dropdown
@@ -150,9 +158,21 @@ fun SearchScreen(goTo: (NavigationTarget) -> Unit) {
                             Column {
                                 suggestionItems.forEach { item ->
                                     DropdownMenuItem(
-                                        text = { Text(item) },
+                                        text = {
+                                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                                KamelImage(
+                                                    resource = asyncPainterResource(item.imageUrl),
+                                                    contentDescription = item.displayTitle,
+                                                    modifier = Modifier
+                                                        .size(80.dp)
+                                                        .padding(4.dp),
+                                                    contentScale = ContentScale.Crop
+                                                )
+                                                Spacer(modifier = Modifier.width(8.dp))
+                                                Text(item.displayTitle)
+                                            }
+                                        },
                                         onClick = {
-                                            search = item
                                             showSuggestions = false
                                         },
                                         modifier = Modifier.fillMaxWidth()

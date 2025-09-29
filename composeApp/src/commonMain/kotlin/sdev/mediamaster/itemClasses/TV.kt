@@ -8,9 +8,9 @@ data class TV(
     @SerialName("original_title")
     override val title: String,
     @SerialName("overview")
-    override val description: String,
+    val description: String,
     @SerialName("backdrop_path")
-    override val imageUrl: String,
+    override var imageUrl: String,
     @SerialName("first_air_date")
     val firstAirDate: String,
     @SerialName("status")

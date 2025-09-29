@@ -8,9 +8,9 @@ data class Movie(
     @SerialName("original_title")
     override val title: String,
     @SerialName("overview")
-    override val description: String,
+    val description: String,
     @SerialName("backdrop_path")
-    override val imageUrl: String,
+    override var imageUrl: String,
     @SerialName("runtime")
     val runtime: Int,
     @SerialName("release_date")
