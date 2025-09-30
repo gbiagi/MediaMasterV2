@@ -11,7 +11,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import sdev.mediamaster.NavigationTarget
+import sdev.mediamaster.Screen
 import sdev.mediamaster.components.ItemDisplay
 import sdev.mediamaster.itemClasses.Item
 
@@ -20,7 +20,7 @@ import sdev.mediamaster.itemClasses.Item
 fun ListView(
     title: String,
     items: List<Item>,
-    goTo: (NavigationTarget) -> Unit
+    goTo: (Screen) -> Unit
 ) {
     Column {
         Appbar(title, goTo)

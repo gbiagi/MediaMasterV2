@@ -14,5 +14,11 @@ data class Movie(
     @SerialName("runtime")
     val runtime: Int,
     @SerialName("release_date")
-    val releaseYear: String
-) : Item
+    val releaseYear: String,
+) : Item {
+    val imgFullUrl: String
+        get() = when {
+            true -> "https://image.tmdb.org/t/p/w500$imageUrl"
+            else -> ""
+        }
+}

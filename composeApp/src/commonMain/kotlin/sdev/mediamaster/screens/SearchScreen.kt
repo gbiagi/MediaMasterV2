@@ -45,14 +45,17 @@ import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.*
 import kotlinx.coroutines.launch
-import sdev.mediamaster.NavigationTarget
+import sdev.mediamaster.Screen
 import sdev.mediamaster.itemClasses.Item
 import sdev.mediamaster.itemClasses.ItemSearch
 import sdev.mediamaster.network.ApiClient
+import sdev.mediamaster.screens.itemScreens.MovieView
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchScreen(goTo: (NavigationTarget) -> Unit) {
+fun SearchScreen(
+    onNavigate: (Screen) -> Unit
+) {
     var search by remember { mutableStateOf("") }
     var expanded by remember { mutableStateOf(false) }
     var showSuggestions by remember { mutableStateOf(false) }
@@ -63,7 +66,7 @@ fun SearchScreen(goTo: (NavigationTarget) -> Unit) {
     val coroutineScope = rememberCoroutineScope()
 
     Column() {
-        Appbar("Search", goTo)
+        Appbar("Search", onNavigate)
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -73,7 +76,7 @@ fun SearchScreen(goTo: (NavigationTarget) -> Unit) {
             Column(
                 modifier = Modifier.verticalScroll(rememberScrollState())
             ) {
-                Spacer(Modifier.height(8.dp))
+                Spacer(Modifier.height(10.dp))
                 Box {
                     Row() {
                         // Search bar
@@ -165,6 +168,15 @@ fun SearchScreen(goTo: (NavigationTarget) -> Unit) {
                                         },
                                         onClick = {
                                             showSuggestions = false
+                                            // Usar el ID real del item
+                                            val itemId = item.id?.toString() ?: "0"
+                                            when (selectedOption) {
+                                                "Movie" -> onNavigate(Screen.MovieDetail(itemId))
+                                                "Book" -> onNavigate(Screen.BookDetail(itemId))
+                                                "Game" -> onNavigate(Screen.GameDetail(itemId))
+                                                "TV" -> onNavigate(Screen.TVDetail(itemId))
+                                                else -> {}
+                                            }
                                         },
                                         modifier = Modifier.fillMaxWidth()
                                     )

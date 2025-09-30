@@ -9,12 +9,12 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import sdev.mediamaster.NavigationTarget
+import sdev.mediamaster.Screen
 
 
 @Composable
 fun MainScreen(
-    goTo: (NavigationTarget) -> Unit
+    goTo: (Screen) -> Unit
 ) {
     Column {
         Appbar("Main Screen", goTo)

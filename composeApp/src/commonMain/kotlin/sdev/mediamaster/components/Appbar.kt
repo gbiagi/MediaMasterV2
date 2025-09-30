@@ -1,4 +1,4 @@
-import sdev.mediamaster.NavigationTarget
+import sdev.mediamaster.Screen
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -11,10 +11,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 
 @Composable
-fun Appbar(title: String, goTo: (NavigationTarget) -> Unit) {
+fun Appbar(title: String, goTo: (Screen) -> Unit) {
     Surface(
         shadowElevation = 4.dp,
         shape = RoundedCornerShape(
@@ -33,15 +35,22 @@ fun Appbar(title: String, goTo: (NavigationTarget) -> Unit) {
                 .background(MaterialTheme.colorScheme.inversePrimary),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Left side space to center the title
-            Spacer(modifier = Modifier.weight(1f))
+            // Left area: back button
+            Row(modifier = Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically) {
+                IconButton(onClick = { goTo(Screen.Back) }) {
+                    Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Back")
+                }
+            }
 
+            // Title centered
             Text(
                 text = title,
                 style = MaterialTheme.typography.titleLarge,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                modifier = Modifier.weight(1f)
             )
-            // Second row to hold everything on the right side
+
+            // Right side: search & home
             Row(
                 modifier = Modifier.weight(1f),
                 horizontalArrangement = Arrangement.End,
@@ -49,7 +58,7 @@ fun Appbar(title: String, goTo: (NavigationTarget) -> Unit) {
             ) {
                 // Search Button
                 Button(
-                    onClick = { goTo(NavigationTarget.SEARCH) },
+                    onClick = { goTo(Screen.Search) },
                     contentPadding = PaddingValues(horizontal = 0.dp, vertical = 0.dp)
                 ) {
                     Icon(imageVector = Icons.Default.Search, contentDescription = "")
@@ -59,7 +68,7 @@ fun Appbar(title: String, goTo: (NavigationTarget) -> Unit) {
 
                 // Home Button
                 Button(
-                    onClick = { goTo(NavigationTarget.MAIN) },
+                    onClick = { goTo(Screen.Main) },
                     contentPadding = PaddingValues(horizontal = 0.dp, vertical = 0.dp)
                 ) {
                     Icon(imageVector = Icons.Default.Home, contentDescription = "")

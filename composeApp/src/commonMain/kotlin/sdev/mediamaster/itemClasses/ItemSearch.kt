@@ -5,6 +5,9 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ItemSearch(
+    @SerialName("id")
+    val id: Int? = null,
+    
     // BOOKS&MOVIES
     @SerialName("title")
     val title: String? = null,
