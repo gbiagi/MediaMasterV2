@@ -9,11 +9,14 @@ data class TV(
     override val title: String,
     @SerialName("overview")
     val description: String,
-    @SerialName("backdrop_path")
+    @SerialName("poster_path")
     override var imageUrl: String,
     @SerialName("first_air_date")
     val firstAirDate: String,
     @SerialName("status")
     val status: String,
     val seasons: Int,
-) : Item
+) : Item {
+    val imgFullUrl: String
+        get() = "https://image.tmdb.org/t/p/w500$imageUrl"
+}

@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 data class ItemSearch(
     @SerialName("id")
     val id: Int? = null,
-    
+
     // BOOKS&MOVIES
     @SerialName("title")
     val title: String? = null,
@@ -17,8 +17,8 @@ data class ItemSearch(
     val name: String? = null,
 
     // MOVIE&TV
-    @SerialName("backdrop_path")
-    val backdropPath: String? = null,
+    @SerialName("poster_path")
+    val poster_path: String? = null,
 
     // BOOKS
     @SerialName("cover_i")
@@ -34,7 +34,7 @@ data class ItemSearch(
 
     val imageUrl: String
         get() = when {
-            backdropPath != null -> "https://image.tmdb.org/t/p/w500$backdropPath"
+            poster_path != null -> "https://image.tmdb.org/t/p/w500$poster_path"
             backgroundImage != null -> backgroundImage
             coverId != null -> "https://covers.openlibrary.org/b/id/$coverId.jpg"
             else -> ""

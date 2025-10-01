@@ -1,12 +1,16 @@
 package sdev.mediamaster.screens.itemScreens
 
 import Appbar
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -20,11 +24,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
 import sdev.mediamaster.Screen
 import sdev.mediamaster.itemClasses.Movie
 import sdev.mediamaster.network.ApiClient
-@Preview
+
 @Composable
 fun MovieView(id: String, goTo: (Screen) -> Unit) {
     var displayedMovie by remember { mutableStateOf<Movie?>(null) }
@@ -40,7 +43,11 @@ fun MovieView(id: String, goTo: (Screen) -> Unit) {
             isLoading = false
         }
     }
-    Column {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
+    ) {
         Appbar("Movie", goTo)
         Spacer(Modifier.height(10.dp))
 
@@ -59,22 +66,26 @@ fun MovieView(id: String, goTo: (Screen) -> Unit) {
             }
 
             displayedMovie != null -> {
-                Column(modifier = Modifier.padding(16.dp)) {
+                Column(
+                    modifier = Modifier.padding(vertical = 30.dp, horizontal = 250.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
                     KamelImage(
                         resource = asyncPainterResource(displayedMovie!!.imgFullUrl),
-                        contentDescription = "aaa",
+                        contentDescription = "imgposter",
                         modifier = Modifier
-                            .size(80.dp)
-                            .padding(4.dp),
+                            .size(300.dp)
+                            .padding(4.dp)
+                            .border(width = 2.dp, color = MaterialTheme.colorScheme.inversePrimary),
                         contentScale = ContentScale.Crop
                     )
-                    Text(text = "Title: ${displayedMovie!!.title}")
+                    Text(text = displayedMovie!!.title, style = MaterialTheme.typography.headlineMedium)
                     Spacer(Modifier.height(8.dp))
-                    Text(text = "Description: ${displayedMovie!!.description}")
+                    Text(text = displayedMovie!!.description)
                     Spacer(Modifier.height(8.dp))
-                    Text(text = "Runtime: ${displayedMovie!!.runtime} minutos")
+                    Text(text = "Runtime: ${displayedMovie!!.runtime} minutes")
                     Spacer(Modifier.height(8.dp))
-                    Text(text = "Release Year: ${displayedMovie!!.releaseYear}")
+                    Text(text = "Released: ${displayedMovie!!.releaseYear}")
                 }
             }
         }

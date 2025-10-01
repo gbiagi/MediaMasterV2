@@ -11,4 +11,7 @@ data class Book(
     val description: String,
     override var imageUrl: String,
     val author: String
-) : Item
+) : Item {
+    val imgFullUrl: String
+        get() = "https://covers.openlibrary.org/b/id/${imageUrl}.jpg"
+}
